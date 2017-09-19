@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 export default class ImageDisplay extends Component {
-
   render() {
     let displayImages = this.props.images.map(image => {
       return (
