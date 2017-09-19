@@ -15,7 +15,6 @@ class App extends Component {
         <Navbar>
           <GetImageForm />
         </Navbar>
-        <h1>Yo</h1>
       </BaseLayout>
     );
   }

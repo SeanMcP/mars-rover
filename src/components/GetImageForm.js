@@ -16,6 +16,7 @@ export default class GetImageForm extends Component {
     this.handleRover = this.handleRover.bind(this)
     this.handleCamera = this.handleCamera.bind(this)
     this.handleSol = this.handleSol.bind(this)
+    this.fetchRoverImage = this.fetchRoverImage.bind(this)
   }
   handleRover(e) {
     e.preventDefault();
@@ -30,6 +31,7 @@ export default class GetImageForm extends Component {
     this.setState({sol: e.target.value})
   }
   fetchRoverImage(e) {
+    e.preventDefault()
     this.setState({camera: this.state.camera, rover: this.state.rover, sol: this.state.sol});
     let cam = this.state.camera;
     let rove = this.state.rover;
@@ -37,10 +39,32 @@ export default class GetImageForm extends Component {
 
     let imageUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rove}/photos?sol=${num}&camera=${cam}&api_key=${API_KEY}`;
 
+    console.log(imageUrl);
+
+    // componentDidMount() {
+      fetch(imageUrl)
+      .then(results => results.json())
+      .then(responseData => {
+        console.log('responseData:\n', responseData.photos);
+        this.setState({images: responseData.photos})
+        console.log('this.state.images:\n', this.state.images.photos);
+      })
+      .catch(error => console.log('Error with fetching: ', error))
+    // }
   }
   render() {
+    let displayImages = this.state.images.map(image => {
+      return (
+        <div key={image.id} className="card m-5">
+          <img className="card-img-top" src={image.img_src} alt="" />
+          <div className="card-footer text-muted p-2 text-center">
+            Rover: {image.rover.name} | Sol: {image.sol} ({image.earth_date})
+          </div>
+        </div>
+      )
+    })
     return (
-      <form>
+      <form onSubmit={this.fetchRoverImage}>
         <div className="form-group">
           <label htmlFor="rover">Rover:</label>
           <select onChange={this.handleRover} id="rover" value={this.state.value}>
@@ -56,8 +80,9 @@ export default class GetImageForm extends Component {
           </select>
           <label htmlFor="sol">Martian Sol: 1000-2000</label>
           <input type="number" onChange={this.handleSol} max="2000" min="1000" value={this.state.value}/>
-          <GetImageButton data={this.state} />
+          <GetImageButton onClick={this.fetchRoverImage} />
         </div>
+        {displayImages}
       </form>
     )
   }
