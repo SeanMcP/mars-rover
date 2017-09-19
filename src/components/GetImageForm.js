@@ -35,7 +35,7 @@ export default class GetImageForm extends Component {
   }
   fetchRoverImage(e) {
     e.preventDefault()
-    this.setState({camera: this.state.camera, rover: this.state.rover, sol: this.state.sol, loader: <Loader />});
+    this.setState({camera: this.state.camera, rover: this.state.rover, sol: this.state.sol, images: [], loader: <Loader />});
     let cam = this.state.camera;
     let rove = this.state.rover;
     let num = this.state.sol;
