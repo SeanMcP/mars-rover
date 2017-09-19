@@ -14,6 +14,7 @@ export default class ImageDisplay extends Component {
     })
     return (
       <div className="d-flex flex-wrap justify-content-center m-2">
+        {this.props.loader}
         {displayImages}
       </div>
     )

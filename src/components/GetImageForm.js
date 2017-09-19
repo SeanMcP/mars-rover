@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import GetImageButton from './GetImageButton'
 import ImageDisplay from './ImageDisplay'
+import Loader from './Loader'
 
 const API_KEY = "MVHTfQrfmsyH7Ko3RBBgdudnBbDzYpgQASS8AHMf"
 
@@ -12,7 +13,8 @@ export default class GetImageForm extends Component {
       rover: "Curiosity",
       camera: "FHAZ",
       images: [],
-      sol: ""
+      sol: "",
+      loader: ""
     }
     this.handleRover = this.handleRover.bind(this)
     this.handleCamera = this.handleCamera.bind(this)
@@ -33,7 +35,7 @@ export default class GetImageForm extends Component {
   }
   fetchRoverImage(e) {
     e.preventDefault()
-    this.setState({camera: this.state.camera, rover: this.state.rover, sol: this.state.sol});
+    this.setState({camera: this.state.camera, rover: this.state.rover, sol: this.state.sol, loader: <Loader />});
     let cam = this.state.camera;
     let rove = this.state.rover;
     let num = this.state.sol;
@@ -43,7 +45,7 @@ export default class GetImageForm extends Component {
     fetch(imageUrl)
     .then(results => results.json())
     .then(responseData => {
-      this.setState({images: responseData.photos})
+      this.setState({images: responseData.photos, loader: ''})
     })
     .catch(error => console.log('Error with fetching: ', error))
   }
@@ -70,7 +72,7 @@ export default class GetImageForm extends Component {
             <GetImageButton onClick={this.fetchRoverImage} />
           </form>
         </div>
-        <ImageDisplay images={this.state.images} />
+        <ImageDisplay images={this.state.images} loader={this.state.loader}/>
       </div>
     )
   }
