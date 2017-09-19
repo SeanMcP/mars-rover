@@ -6,7 +6,7 @@ export default class GetImageButton extends Component {
   // }
   render() {
     return (
-      <button className="btn" type="submit" onSubmit={this.props.onClick}>Search</button>
+      <button className="btn btn-secondary ml-2" type="submit" onSubmit={this.props.onClick}>Search</button>
     )
   }
 }

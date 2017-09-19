@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 
 import BaseLayout from './BaseLayout'
-import Navbar from './Navbar'
 import GetImageForm from './GetImageForm'
 
 class App extends Component {
@@ -12,9 +11,7 @@ class App extends Component {
   render() {
     return (
       <BaseLayout>
-        <Navbar>
-          <GetImageForm />
-        </Navbar>
+        <GetImageForm />
       </BaseLayout>
     );
   }
