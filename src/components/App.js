@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
 
-import BaseLayout from './BaseLayout.js'
+import BaseLayout from './BaseLayout'
+import Navbar from './Navbar'
 
 class App extends Component {
   constructor() {
@@ -10,6 +11,9 @@ class App extends Component {
   render() {
     return (
       <BaseLayout>
+        <Navbar>
+          <h2>I am the navbar</h2>
+        </Navbar>
         <h1>Yo</h1>
       </BaseLayout>
     );
