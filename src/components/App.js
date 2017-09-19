@@ -3,6 +3,7 @@ import '../styles/App.css';
 
 import BaseLayout from './BaseLayout'
 import Navbar from './Navbar'
+import GetImageForm from './GetImageForm'
 
 class App extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class App extends Component {
     return (
       <BaseLayout>
         <Navbar>
-          <h2>I am the navbar</h2>
+          <GetImageForm />
         </Navbar>
         <h1>Yo</h1>
       </BaseLayout>
