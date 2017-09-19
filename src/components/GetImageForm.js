@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import GetImageButton from './GetImageButton'
+
+const API_KEY = "MVHTfQrfmsyH7Ko3RBBgdudnBbDzYpgQASS8AHMf"
+
 export default class GetImageForm extends Component {
   constructor() {
     super()
@@ -25,6 +29,15 @@ export default class GetImageForm extends Component {
     e.preventDefault();
     this.setState({sol: e.target.value})
   }
+  fetchRoverImage(e) {
+    this.setState({camera: this.state.camera, rover: this.state.rover, sol: this.state.sol});
+    let cam = this.state.camera;
+    let rove = this.state.rover;
+    let num = this.state.sol;
+
+    let imageUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/${rove}/photos?sol=${num}&camera=${cam}&api_key=${API_KEY}`;
+
+  }
   render() {
     return (
       <form>
@@ -43,6 +56,7 @@ export default class GetImageForm extends Component {
           </select>
           <label htmlFor="sol">Martian Sol: 1000-2000</label>
           <input type="number" onChange={this.handleSol} max="2000" min="1000" value={this.state.value}/>
+          <GetImageButton data={this.state} />
         </div>
       </form>
     )
