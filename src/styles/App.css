@@ -1,3 +1,13 @@
+body {
+  background: #f1f1f1;
+}
+.card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease-in-out;
+}
+.card:hover {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
 .loader {
     border: 16px solid #ddd;
     border-top: 16px solid #0068AE;

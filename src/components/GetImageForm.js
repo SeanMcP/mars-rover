@@ -14,7 +14,8 @@ export default class GetImageForm extends Component {
       camera: "FHAZ",
       images: [],
       sol: "",
-      loader: ""
+      loader: "",
+      message: "Search for some awesome images from NASA's Mars Rovers"
     }
     this.handleRover = this.handleRover.bind(this)
     this.handleCamera = this.handleCamera.bind(this)
@@ -35,7 +36,7 @@ export default class GetImageForm extends Component {
   }
   fetchRoverImage(e) {
     e.preventDefault()
-    this.setState({camera: this.state.camera, rover: this.state.rover, sol: this.state.sol, images: [], loader: <Loader />});
+    this.setState({camera: this.state.camera, rover: this.state.rover, sol: this.state.sol, images: [], loader: <Loader />, message: ''});
     let cam = this.state.camera;
     let rove = this.state.rover;
     let num = this.state.sol;
@@ -45,9 +46,15 @@ export default class GetImageForm extends Component {
     fetch(imageUrl)
     .then(results => results.json())
     .then(responseData => {
-      this.setState({images: responseData.photos, loader: ''})
+      this.setState({images: responseData.photos, loader: '', message: rove})
+      if(this.state.images.length === 0) {
+        this.setState({message: 'No images found. Try searching again.'})
+      }
     })
-    .catch(error => console.log('Error with fetching: ', error))
+    .catch(error => {
+      console.log('Error with fetching: ', error)
+      this.setState({message: 'Uh oh! There was an error getting those images'})
+    })
   }
   render() {
     return (
@@ -72,6 +79,7 @@ export default class GetImageForm extends Component {
             <GetImageButton onClick={this.fetchRoverImage} />
           </form>
         </div>
+        <h4 className="display-4 text-center my-5 mx-auto w-50">{this.state.message}</h4>
         <ImageDisplay images={this.state.images} loader={this.state.loader}/>
       </div>
     )
